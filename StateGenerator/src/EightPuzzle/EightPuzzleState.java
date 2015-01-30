@@ -7,12 +7,21 @@ public class EightPuzzleState extends State {
 	private int currentY = 2;
 	private int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
 	
-	public EightPuzzleState() {}
+	public EightPuzzleState() {super();}
 	
 	public EightPuzzleState(EightPuzzleState state) {
+		super();
 		this.board = state.copyBoard();
 		this.currentX = state.currentX;
 		this.currentY = state.currentY;
+	}
+	
+	public EightPuzzleState(int[][] board, int currentX, int currentY)
+	{
+		super();
+		this.board = board;
+		this.currentX = currentX;
+		this.currentY = currentY;
 	}
 	
 	private boolean update(int dx, int dy) {
@@ -46,6 +55,7 @@ public class EightPuzzleState extends State {
 	@Override
 	public State apply(char op) {
 		EightPuzzleState state = new EightPuzzleState(this);
+
 		int dx = 0, dy = 0;
 		
 		switch (op) {
@@ -74,5 +84,25 @@ public class EightPuzzleState extends State {
 			s += "\n";
 		}
 		return s;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (! (obj instanceof EightPuzzleState))
+			return false;
+		
+		EightPuzzleState state = (EightPuzzleState)obj;
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				if (this.board[i][j] != state.board[i][j])
+					return false;
+		
+		return true;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		EightPuzzleState newState = new EightPuzzleState(this);
+		return newState;
 	}
 }

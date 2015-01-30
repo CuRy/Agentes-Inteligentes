@@ -10,9 +10,14 @@ public class Generator {
 	public State[] generate(State state) {
 		int len = operators.length();
 		State[] states = new State[len];
-		System.out.println(state);
-		for (int i = 0; i < len; i++)
-			states[i] = state.apply(operators.opAtIndex(i));
+		
+		for (int i = 0; i < len; i++) {
+			char op = operators.opAtIndex(i);
+			State newState = state.apply(op);
+			newState.parent = state;
+			newState.operatorFromWhichICameFromInTheFirstPlacePSTheReasonIExist = op;
+			states[i] = newState;
+		}
 		
 		return states;
 	}

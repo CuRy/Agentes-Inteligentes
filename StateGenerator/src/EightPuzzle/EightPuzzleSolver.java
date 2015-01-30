@@ -1,7 +1,9 @@
 package EightPuzzle;
 
+import java.util.ArrayList;
+
 import Main.Generator;
-import Main.State;
+import Main.Solver;
 
 public class EightPuzzleSolver {
 	private Generator generator = new Generator();
@@ -11,14 +13,21 @@ public class EightPuzzleSolver {
 		generator.setOperators(operators);
 	}
 	
-	public void solve() {
-		for (State s: generator.generate(new EightPuzzleState()))
-			if (s != null)
-				System.out.println((EightPuzzleState) s);
+	public static void main(String[] args) throws CloneNotSupportedException {
+		Solver solver = new Solver();
 		
-	}
-	public static void main(String[] args) {
-		EightPuzzleSolver solver = new EightPuzzleSolver();
-		solver.solve();
+		int currentX = 1;
+		int currentY = 2;
+		int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 0, 8}};
+		
+		EightPuzzleState initial = new EightPuzzleState();
+		
+		EightPuzzleState goal = new EightPuzzleState(board, currentX, currentY);
+		
+		ArrayList<Character> mySolution = new ArrayList<Character>();
+		
+		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
+		
+		System.out.println(mySolution);
 	}
 }

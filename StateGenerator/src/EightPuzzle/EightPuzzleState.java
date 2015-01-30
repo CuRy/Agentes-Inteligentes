@@ -24,7 +24,7 @@ public class EightPuzzleState extends State {
 		this.currentY = currentY;
 	}
 	
-	private boolean update(int dx, int dy) {
+	public boolean update(int dx, int dy) {
 		if (isValid(dx, dy)) {
 			board[currentY][currentX] = board[currentY + dy][currentX + dx];
 			board[currentY + dy][currentX + dx] = 0;

@@ -6,15 +6,14 @@ import Main.Generator;
 import Main.Solver;
 
 public class EightPuzzleSolver {
-	private Generator generator = new Generator();
 	
 	public EightPuzzleSolver() {
-		char[] operators = { 'L', 'R', 'U', 'D' };
-		generator.setOperators(operators);
 	}
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 		Solver solver = new Solver();
+		char[] operators = { 'L', 'R', 'U', 'D' };
+		solver.setOperators(operators);
 		
 		int currentX = 1;
 		int currentY = 2;
@@ -22,12 +21,42 @@ public class EightPuzzleSolver {
 		
 		EightPuzzleState initial = new EightPuzzleState();
 		
-		EightPuzzleState goal = new EightPuzzleState(board, currentX, currentY);
+		EightPuzzleState goal = new EightPuzzleState();
+		goal = (EightPuzzleState) goal.apply('D');
+		goal = (EightPuzzleState) goal.apply('R');
+		goal = (EightPuzzleState) goal.apply('D');
+		goal = (EightPuzzleState) goal.apply('R');
+		goal = (EightPuzzleState) goal.apply('U');
+		goal = (EightPuzzleState) goal.apply('L');
 		
 		ArrayList<Character> mySolution = new ArrayList<Character>();
 		
+		long startTime, finalTime;
+
+		System.out.println("DFS Solving started...");
+		startTime = System.nanoTime();
 		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
-		
-		System.out.println(mySolution);
+		finalTime = System.nanoTime();
+		if(mySolution != null) {
+			System.out.println("Solution found in " + (finalTime - startTime)/1000000 + " miliseconds.");
+			System.out.println(mySolution.size() + " operations:");
+			System.out.println(mySolution);
+		} else
+		{
+			System.out.println("No solution found. Spent " + (finalTime - startTime)/1000000 + " miliseconds.");
+		}
+
+		System.out.println("BFS Solving started...");
+		startTime = System.nanoTime();
+		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.BFS);
+		finalTime = System.nanoTime();
+		if(mySolution != null) {
+			System.out.println("Solution found in " + (finalTime - startTime)/1000000 + " miliseconds.");
+			System.out.println(mySolution.size() + " operations:");
+			System.out.println(mySolution);
+		} else
+		{
+			System.out.println("No solution found. Spent " + (finalTime - startTime)/1000000 + " miliseconds.");
+		}
 	}
 }

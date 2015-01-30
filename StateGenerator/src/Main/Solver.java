@@ -11,7 +11,13 @@ public class Solver {
 		DFS, BFS
 	}
 	
-	public Generator generator = new Generator();
+	private Generator generator = new Generator();
+	
+	public void setOperators(char[] operators) {
+		
+		this.generator.setOperators(operators);
+	}
+	
 	public ArrayList<State> visited = new ArrayList<State>();
 	
 	public State DFS(State initial, State goal) {
@@ -19,10 +25,10 @@ public class Solver {
 		State[] next;
 		State currentState = initial;
 		
-		while (!currentState.equals(goal) && !stack.isEmpty()) {
+		while (!currentState.equals(goal)) {
 			next = generator.generate(currentState);
 			for (int i = 0; i < next.length; i++) {
-				if (!visited.contains(next[i])) {					
+				if (next[i] != null && !visited.contains(next[i])) {					
 					stack.push(next[i]);
 					visited.add(next[i]);
 				}
@@ -30,7 +36,8 @@ public class Solver {
 			
 			if (!stack.isEmpty())
 				currentState = stack.pop();	
-			return null;
+			else
+				return null;
 		}
 		
 		return currentState;
@@ -42,10 +49,10 @@ public class Solver {
 		State[] next;
 		State currentState = (State) initial.clone();
 		
-		while (!currentState.equals(goal) && !queue.isEmpty()) {
+		while (!currentState.equals(goal)) {
 			next = generator.generate(currentState);
 			for (int i = 0; i < next.length; i++) {
-				if (!visited.contains(next[i])) {					
+				if (next[i] != null && !visited.contains(next[i])) {					
 					queue.add(next[i]);
 					visited.add(next[i]);
 				}
@@ -62,7 +69,14 @@ public class Solver {
 	
 	public ArrayList<Character> Solve(State initial, State goal,
 										SolveStrategy strategy) throws CloneNotSupportedException {
+		if(this.generator.getOperators() == null)
+			return null;
+		
+		if(initial == null || goal == null)
+			return null;
+		
 		State state = null;
+		this.visited.removeAll(this.visited);
 		ArrayList<Character> solution = null;
 		
 		switch (strategy) {

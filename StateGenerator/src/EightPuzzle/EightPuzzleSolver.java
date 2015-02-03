@@ -8,10 +8,11 @@ import Main.Solver;
 public class EightPuzzleSolver {
 	
 	public EightPuzzleSolver() {
+		super();
 	}
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
-		Solver solver = new Solver();
+		Solver solver = new Solver(3);
 		char[] operators = { 'L', 'R', 'U', 'D' };
 		solver.setOperators(operators);
 		
@@ -33,30 +34,8 @@ public class EightPuzzleSolver {
 		
 		long startTime, finalTime;
 
-		System.out.println("DFS Solving started...");
-		startTime = System.nanoTime();
-		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
-		finalTime = System.nanoTime();
-		if(mySolution != null) {
-			System.out.println("Solution found in " + (finalTime - startTime)/1000000 + " miliseconds.");
-			System.out.println(mySolution.size() + " operations:");
-			System.out.println(mySolution);
-		} else
-		{
-			System.out.println("No solution found. Spent " + (finalTime - startTime)/1000000 + " miliseconds.");
-		}
+		// mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
 
-		System.out.println("BFS Solving started...");
-		startTime = System.nanoTime();
 		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.BFS);
-		finalTime = System.nanoTime();
-		if(mySolution != null) {
-			System.out.println("Solution found in " + (finalTime - startTime)/1000000 + " miliseconds.");
-			System.out.println(mySolution.size() + " operations:");
-			System.out.println(mySolution);
-		} else
-		{
-			System.out.println("No solution found. Spent " + (finalTime - startTime)/1000000 + " miliseconds.");
-		}
 	}
 }

@@ -3,6 +3,7 @@ package EightPuzzle;
 import java.util.ArrayList;
 
 import Main.Generator;
+import Main.Operator;
 import Main.Solver;
 
 public class EightPuzzleSolver {
@@ -13,7 +14,11 @@ public class EightPuzzleSolver {
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 		Solver solver = new Solver(3);
-		char[] operators = { 'L', 'R', 'U', 'D' };
+		EightPuzzleOperator[] operators = 
+			{ new EightPuzzleOperator(1, 0), // LEFT
+				new EightPuzzleOperator(-1, 0), // RIGHT
+				new EightPuzzleOperator(0, 1), // UP
+				new EightPuzzleOperator(0, -1) }; // DOWN
 		solver.setOperators(operators);
 		
 		int currentX = 1;
@@ -23,14 +28,14 @@ public class EightPuzzleSolver {
 		EightPuzzleState initial = new EightPuzzleState();
 		
 		EightPuzzleState goal = new EightPuzzleState();
-		goal = (EightPuzzleState) goal.apply('D');
-		goal = (EightPuzzleState) goal.apply('R');
-		goal = (EightPuzzleState) goal.apply('D');
-		goal = (EightPuzzleState) goal.apply('R');
-		goal = (EightPuzzleState) goal.apply('U');
-		goal = (EightPuzzleState) goal.apply('L');
+		goal = (EightPuzzleState) goal.apply(operators[3]);
+		goal = (EightPuzzleState) goal.apply(operators[1]);
+		goal = (EightPuzzleState) goal.apply(operators[3]);
+		goal = (EightPuzzleState) goal.apply(operators[1]);
+		goal = (EightPuzzleState) goal.apply(operators[2]);
+		goal = (EightPuzzleState) goal.apply(operators[0]);
 		
-		ArrayList<Character> mySolution = new ArrayList<Character>();
+		ArrayList<Operator> mySolution = new ArrayList<Operator>();
 		
 		long startTime, finalTime;
 

@@ -1,11 +1,11 @@
 package Sudoku;
 
-import EightPuzzle.EightPuzzleState;
+import Main.Operator;
 import Main.State;
 import Main.Utils;
 
 public class SudokuState extends State {
-	private static int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+	private int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
 	
 	public SudokuState() {super();}
 	
@@ -20,23 +20,23 @@ public class SudokuState extends State {
 	}
 	
 	public boolean update(int x, int y, int n) {
-		if (Validator.isValid(x, y, n)) {
+		if ((new Validator()).isValid(x, y, n)) {
 			board[x][y] = n;
 			return true;
 		}
 		return false;
 	}
 	
-	private static class Validator {
-		static int row;
-		static int col;
-		static int n;
+	private class Validator {
+		private int row;
+		private int col;
+		private int n;
 		
-		public static boolean isValid(int x, int y, int n) {
+		public boolean isValid(int x, int y, int n) {
 			return checkRow() && checkCol() && checkSquare() && checkNum();
 		}
 		
-		private static boolean checkRow() {
+		private boolean checkRow() {
 			for (int i = 0; i < 9; i++)
 				if (board[row][i] == n)
 					return false;
@@ -44,7 +44,7 @@ public class SudokuState extends State {
 			return true;
 		}
 		
-		private static boolean checkCol() {
+		private boolean checkCol() {
 			for (int i = 0; i < 9; i++)
 				if (board[i][col] == n)
 					return false;
@@ -52,7 +52,7 @@ public class SudokuState extends State {
 			return true;
 		}
 		
-		private static boolean checkSquare() {
+		private boolean checkSquare() {
 			int drow = (row/3) * 3;
 			int dcol = (col/3) * 3;
 			
@@ -65,7 +65,7 @@ public class SudokuState extends State {
 			return true;
 		}
 		
-		private static boolean checkNum() {
+		private boolean checkNum() {
 			return board[row][col] == 0 && n > 0 && n <= 9;
 		}
 	}
@@ -73,7 +73,7 @@ public class SudokuState extends State {
 		
 
 	@Override
-	public State apply(char op) {
+	public State apply(Operator op) {
 		// TODO Auto-generated method stub
 		return null;
 	}

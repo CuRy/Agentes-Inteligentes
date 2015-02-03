@@ -49,26 +49,10 @@ public class EightPuzzleState extends State {
 	public State apply(Operator operator) {
 		if (!(operator instanceof EightPuzzleOperator)) return null;
 		
-		EightPuzzleOperator op = (EightPuzzleOperator) operator;
+		Integer[] args = (Integer[]) operator.args;
 		EightPuzzleState state = new EightPuzzleState(this);
-
-		int dx = 0, dy = 0;
 		
-		switch (op) {
-			case 'L': 
-				dx++;
-				break;
-			case 'R': 
-				dx--;
-				break;
-			case 'U':
-				dy++;
-				break;
-			case 'D': 
-				dy--;
-				break;
-		}
-		return state.update(dx, dy)? state: null;
+		return state.update(args[0], args[1])? state: null;
 	}
 	
 	@Override

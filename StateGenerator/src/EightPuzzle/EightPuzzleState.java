@@ -1,5 +1,6 @@
 package EightPuzzle;
 
+import Main.Operator;
 import Main.State;
 import Main.Utils;
 
@@ -45,7 +46,10 @@ public class EightPuzzleState extends State {
 	}
 	
 	@Override
-	public State apply(char op) {
+	public State apply(Operator operator) {
+		if (!(operator instanceof EightPuzzleOperator)) return null;
+		
+		EightPuzzleOperator op = (EightPuzzleOperator) operator;
 		EightPuzzleState state = new EightPuzzleState(this);
 
 		int dx = 0, dy = 0;

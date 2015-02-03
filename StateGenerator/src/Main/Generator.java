@@ -3,7 +3,7 @@ package Main;
 public class Generator {
 	public Operators operators = null;
 	
-	public void setOperators(char[] ops) {
+	public void setOperators(Operator[] ops) {
 		if(this.operators == null)
 			this.operators = new Operators();
 		
@@ -19,11 +19,11 @@ public class Generator {
 		State[] states = new State[len];
 		
 		for (int i = 0; i < len; i++) {
-			char op = operators.opAtIndex(i);
+			Operator op = operators.opAtIndex(i);
 			State newState = state.apply(op);
 			if(newState != null) {
 				newState.parent = state;
-				newState.operatorFromWhichICameFromInTheFirstPlacePSTheReasonIExist = op;
+				newState.operatorObjectWhichICameFromInTheFirstPlacePSTheReasonIExistInTheSmartestCounty = op;
 			}
 			states[i] = newState;
 		}

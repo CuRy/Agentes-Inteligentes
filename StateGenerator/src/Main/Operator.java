@@ -1,5 +1,5 @@
 package Main;
 
-public class Operator {
-
+public abstract class Operator {
+	public Object[] args;
 }

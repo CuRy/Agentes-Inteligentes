@@ -1,13 +1,13 @@
 package Main;
 
 public class Operators {
-	private char[] operators;
+	private Operator[] operators;
 	
-	public void setOperators(char[] operators) {
+	public void setOperators(Operator[] operators) {
 		this.operators = operators;
 	}
 	
-	public char[] getOperators() {
+	public Operator[] getOperators() {
 		return operators;
 	}
 	
@@ -15,7 +15,7 @@ public class Operators {
 		return operators.length;
 	}
 	
-	public char opAtIndex(int index) {
+	public Operator opAtIndex(int index) {
 		return operators[index];
 	}
 }

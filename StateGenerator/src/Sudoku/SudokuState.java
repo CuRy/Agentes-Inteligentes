@@ -14,8 +14,7 @@ public class SudokuState extends State {
 		this.board = Utils.copyMatrix(state.board);
 	}
 	
-	public SudokuState(int[][] board)
-	{
+	public SudokuState(int[][] board) {
 		super();
 		this.board = board;
 	}
@@ -69,7 +68,6 @@ public class SudokuState extends State {
 		private static boolean checkNum() {
 			return board[row][col] == 0 && n > 0 && n <= 9;
 		}
-
 	}
 	
 		

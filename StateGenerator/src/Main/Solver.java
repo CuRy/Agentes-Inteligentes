@@ -27,7 +27,7 @@ public class Solver {
 	/**Verbose level*/
 	private int verbose = 0;
 	
-	/**search start time in nanoeconds. verbose level 1*/
+	/**search start time in nanoseconds. verbose level 1*/
 	private long startTime;
 	
 	/**search end time in nanoseconds. verbose level 1*/
@@ -40,7 +40,7 @@ public class Solver {
 	private boolean printSolution;
 	
 	
-	public void setOperators(char[] operators) {
+	public void setOperators(Operator[] operators) {
 		
 		this.generator.setOperators(operators);
 	}
@@ -108,7 +108,7 @@ public class Solver {
 		return currentState;
 	}
 	
-	public ArrayList<Character> Solve(State initial, State goal,
+	public ArrayList<Operator> Solve(State initial, State goal,
 										SolveStrategy strategy) throws CloneNotSupportedException {
 		if(this.generator.getOperators() == null)
 			return null;
@@ -120,7 +120,7 @@ public class Solver {
 		// restore initial values for calculations
 		this.visited.removeAll(this.visited);
 		this.generatedStates = 0;
-		ArrayList<Character> solution = null;
+		ArrayList<Operator> solution = null;
 		
 		switch (strategy) {
 			case DFS:
@@ -157,11 +157,11 @@ public class Solver {
 		return solution;
 	}
 	
-	private ArrayList<Character> backtrack(State state) {
-		ArrayList<Character> mySolution = new ArrayList<Character>();
+	private ArrayList<Operator> backtrack(State state) {
+		ArrayList<Operator> mySolution = new ArrayList<Operator>();
 		while(state.parent != null)
 		{
-			mySolution.add(state.operatorFromWhichICameFromInTheFirstPlacePSTheReasonIExist);
+			mySolution.add(state.operatorObjectWhichICameFromInTheFirstPlacePSTheReasonIExistInTheSmartestCounty);
 			state = state.parent;
 		}
 		Collections.reverse(mySolution);

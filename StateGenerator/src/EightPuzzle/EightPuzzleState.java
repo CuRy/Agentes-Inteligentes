@@ -1,6 +1,7 @@
 package EightPuzzle;
 
 import Main.State;
+import Main.Utils;
 
 public class EightPuzzleState extends State {
 	private int currentX = 2;
@@ -11,7 +12,7 @@ public class EightPuzzleState extends State {
 	
 	public EightPuzzleState(EightPuzzleState state) {
 		super();
-		this.board = state.copyBoard();
+		this.board = Utils.copyMatrix(state.board);
 		this.currentX = state.currentX;
 		this.currentY = state.currentY;
 	}
@@ -41,15 +42,6 @@ public class EightPuzzleState extends State {
 		int y = currentY + dy;
 
 		return x > -1 && x < 3 && y > -1 && y < 3;	
-	}
-	
-	private int[][] copyBoard() {
-		int[][] copy = new int[3][3];
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++) 
-				copy[i][j] = board[i][j];
-		
-		return copy;
 	}
 	
 	@Override

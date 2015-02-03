@@ -8,7 +8,8 @@ import java.util.Stack;
 public class Solver {
 	
 	public enum SolveStrategy {
-		DFS, BFS
+		DFS, 
+		BFS
 	}
 	
 	private Generator generator = new Generator();

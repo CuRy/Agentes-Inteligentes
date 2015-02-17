@@ -2,15 +2,12 @@ package EightPuzzle;
 
 import java.util.ArrayList;
 
-import Main.Generator;
 import Main.Operator;
 import Main.Solver;
 
 public class EightPuzzleSolver {
 	
-	public EightPuzzleSolver() {
-		super();
-	}
+	public EightPuzzleSolver() { super(); }
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 		Solver solver = new Solver(3);
@@ -19,11 +16,7 @@ public class EightPuzzleSolver {
 				new EightPuzzleOperator(-1, 0), // RIGHT
 				new EightPuzzleOperator(0, 1), // UP
 				new EightPuzzleOperator(0, -1) }; // DOWN
-		solver.setOperators(operators);
-		
-		int currentX = 1;
-		int currentY = 2;
-		int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 0, 8}};
+		solver.setOperators(operators);		
 		
 		EightPuzzleState initial = new EightPuzzleState();
 		
@@ -38,9 +31,12 @@ public class EightPuzzleSolver {
 		ArrayList<Operator> mySolution = new ArrayList<Operator>();
 		
 		long startTime, finalTime;
-
+		
+		startTime = System.currentTimeMillis();
 		// mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
-
 		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.BFS);
+		finalTime = System.currentTimeMillis();
+		
+		System.out.println(finalTime - startTime);
 	}
 }

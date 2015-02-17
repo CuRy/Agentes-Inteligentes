@@ -9,7 +9,7 @@ public class EightPuzzleState extends State {
 	private int currentY = 2;
 	private int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
 	
-	public EightPuzzleState() {super();}
+	public EightPuzzleState() { super(); }
 	
 	public EightPuzzleState(EightPuzzleState state) {
 		super();
@@ -68,7 +68,7 @@ public class EightPuzzleState extends State {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (! (obj instanceof EightPuzzleState))
+		if (!(obj instanceof EightPuzzleState))
 			return false;
 		
 		EightPuzzleState state = (EightPuzzleState)obj;

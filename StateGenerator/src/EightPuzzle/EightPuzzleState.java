@@ -49,10 +49,10 @@ public class EightPuzzleState extends State {
 	public State apply(Operator operator) {
 		if (!(operator instanceof EightPuzzleOperator)) return null;
 		
-		Integer[] args = (Integer[]) operator.args;
+		Object[] args = operator.Arguments;
 		EightPuzzleState state = new EightPuzzleState(this);
 		
-		return state.update(args[0], args[1])? state: null;
+		return state.update((int)args[0], (int)args[1])? state: null;
 	}
 	
 	@Override
@@ -84,5 +84,10 @@ public class EightPuzzleState extends State {
 	protected Object clone() throws CloneNotSupportedException {
 		EightPuzzleState newState = new EightPuzzleState(this);
 		return newState;
+	}
+
+	@Override
+	protected boolean isFinal() {
+		return this.equals(new EightPuzzleState(new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}}, 2, 2));
 	}
 }

@@ -1,8 +1,5 @@
 package EightPuzzle;
 
-import java.util.ArrayList;
-
-import Main.Operator;
 import Main.Solver;
 
 public class EightPuzzleSolver {
@@ -18,25 +15,10 @@ public class EightPuzzleSolver {
 				new EightPuzzleOperator(0, -1) }; // DOWN
 		solver.setOperators(operators);		
 		
-		EightPuzzleState initial = new EightPuzzleState();
+		//EightPuzzleState initial = new EightPuzzleState(new int[][] {{6, 1, 8}, {7, 5, 3}, {2, 0, 4}}, 1, 2);
+		EightPuzzleState initial = new EightPuzzleState(new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 0, 8}}, 1, 2);
 		
-		EightPuzzleState goal = new EightPuzzleState();
-		goal = (EightPuzzleState) goal.apply(operators[3]);
-		goal = (EightPuzzleState) goal.apply(operators[1]);
-		goal = (EightPuzzleState) goal.apply(operators[3]);
-		goal = (EightPuzzleState) goal.apply(operators[1]);
-		goal = (EightPuzzleState) goal.apply(operators[2]);
-		goal = (EightPuzzleState) goal.apply(operators[0]);
-		
-		ArrayList<Operator> mySolution = new ArrayList<Operator>();
-		
-		long startTime, finalTime;
-		
-		startTime = System.currentTimeMillis();
-		// mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
-		mySolution = solver.Solve(initial, goal, Solver.SolveStrategy.BFS);
-		finalTime = System.currentTimeMillis();
-		
-		System.out.println(finalTime - startTime);
+		solver.Solve(initial, Solver.SolveStrategy.DFS);
+
 	}
 }

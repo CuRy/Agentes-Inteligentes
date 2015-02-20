@@ -8,19 +8,10 @@ public class SudokuSolver {
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 		Solver solver = new Solver(3);
-		SudokuOperator[] operators = {};
-		solver.setOperators(operators);				
+		solver.setOperators(new SudokuOperator(1,1,1).generateArgs());				
 		SudokuState initial = new SudokuState();
-		
-		SudokuState goal = new SudokuState();
-//		goal = (SudokuState) goal.apply(operators[3]);
-//		goal = (SudokuState) goal.apply(operators[1]);
-//		goal = (SudokuState) goal.apply(operators[3]);
-//		goal = (SudokuState) goal.apply(operators[1]);
-//		goal = (SudokuState) goal.apply(operators[2]);
-//		goal = (SudokuState) goal.apply(operators[0]);
 			
-		// solver.Solve(initial, goal, Solver.SolveStrategy.DFS);
-		solver.Solve(initial, goal, Solver.SolveStrategy.BFS);
+		//solver.Solve(initial, Solver.SolveStrategy.DFS);
+		solver.Solve(initial, Solver.SolveStrategy.BFS);
 	}
 }

@@ -17,6 +17,6 @@ public abstract class State {
 	@Override
 	protected abstract Object clone() throws CloneNotSupportedException;
 	
-	
+	protected abstract boolean isFinal();
 	
 }

@@ -6,15 +6,17 @@ import Main.Utils;
 
 public class SudokuState extends State {
 	private int[][] board = {
-		      { 0, 8, 0, 4, 0, 2, 0, 6, 0 },
-		      { 0, 3, 4, 0, 0, 0, 9, 1, 0 },
-		      { 9, 6, 0, 0, 0, 0, 0, 8, 4 },
-		      { 0, 0, 0, 2, 1, 6, 0, 0, 0 },
-		      { 2, 0, 0, 0, 0, 9, 6, 0, 0 },
-		      { 0, 1, 0, 3, 5, 7, 0, 0, 8 },
-		      { 8, 4, 0, 0, 0, 0, 0, 7, 5 },
-		      { 0, 2, 6, 0, 0, 0, 1, 3, 0 },
-		      { 0, 9, 0, 7, 0, 1, 0, 4, 0 }
+		      { 0, 7, 8,	1, 4, 5,	6, 2, 9 },
+		      { 1, 4, 9,	8, 6, 2,	7, 5, 3 },
+		      { 5, 2, 6,	3, 9, 7,	1, 4, 8 },
+		      
+		      { 8, 3, 5,	9, 2, 1,	4, 7, 6 },
+		      { 2, 6, 1,	4, 7, 3,	8, 9, 5 },
+		      { 7, 9, 4,	6, 5, 8,	3, 1, 2 },
+		      
+		      { 9, 8, 3,	5, 1, 4,	2, 6, 7 },
+		      { 6, 1, 7,	2, 8, 9,	5, 3, 4 },
+		      { 4, 5, 2,	7, 3, 6,	9, 8, 1 }
 		    };
 	
 	public SudokuState() {super();}
@@ -43,6 +45,9 @@ public class SudokuState extends State {
 		private int n;
 		
 		public boolean isValid(int x, int y, int n) {
+			this.row = y;
+			this.col = x;
+			this.n = n;
 			return checkRow() && checkCol() && checkSquare() && checkNum();
 		}
 		
@@ -84,10 +89,9 @@ public class SudokuState extends State {
 	public State apply(Operator op) {
 		if (!(op instanceof SudokuOperator)) return null;
 		
-		Integer[] args = (Integer[]) op.args;
+		Object[] args = op.Arguments;
 		SudokuState state = new SudokuState(this);
-		
-		return state.update(args[0], args[1], args[2])? state: null;
+		return state.update((int)args[0], (int)args[1], (int)args[2])? state: null;
 	}
 	
 	@Override
@@ -119,6 +123,16 @@ public class SudokuState extends State {
 	protected Object clone() throws CloneNotSupportedException {
 		SudokuState newState = new SudokuState(this);
 		return newState;
+	}
+
+	@Override
+	protected boolean isFinal() {
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++) 
+				if (board[i][j] == 0)
+					return false;
+			
+		return true;
 	}
 	
 

@@ -47,7 +47,7 @@ public class Solver {
 	
 	public ArrayList<State> visited = new ArrayList<State>();
 	
-	public State DFS(State initial, State goal) {
+	public State DFS(State initial) {
 		Stack<State> stack = new Stack<State>();
 		State[] next;
 		State currentState = initial;
@@ -55,13 +55,14 @@ public class Solver {
 			System.out.println("DFS Solving started...");
 		
 		this.startTime = System.nanoTime();
-		while (!currentState.equals(goal)) {
+		while (!currentState.isFinal()) {
 			next = generator.generate(currentState);
 			for (int i = 0; i < next.length; i++) {
 				if (next[i] != null && !visited.contains(next[i])) {
 					generatedStates++;
 					stack.push(next[i]);
 					visited.add(next[i]);
+					System.out.println("generated states: " + generatedStates);
 				}
 			}
 			
@@ -77,7 +78,7 @@ public class Solver {
 		return currentState;
 	}	
 	
-	private State BFS(State initial, State goal) throws CloneNotSupportedException {
+	private State BFS(State initial) throws CloneNotSupportedException {
 		
 		LinkedList<State> queue = new LinkedList<State>();
 		State[] next;
@@ -86,7 +87,7 @@ public class Solver {
 			System.out.println("BFS Solving started...");
 		
 		this.startTime = System.nanoTime();
-		while (!currentState.equals(goal)) {
+		while (!currentState.isFinal()) {
 			next = generator.generate(currentState);
 			for (int i = 0; i < next.length; i++) {
 				if (next[i] != null && !visited.contains(next[i])) {
@@ -108,12 +109,11 @@ public class Solver {
 		return currentState;
 	}
 	
-	public ArrayList<Operator> Solve(State initial, State goal,
-										SolveStrategy strategy) throws CloneNotSupportedException {
-		if(this.generator.getOperators() == null)
+	public ArrayList<Operator> Solve(State initial, SolveStrategy strategy) throws CloneNotSupportedException {
+		if (this.generator.getOperators() == null)
 			return null;
 		
-		if(initial == null || goal == null)
+		if (initial == null)
 			return null;
 		
 		State state = null;
@@ -124,10 +124,10 @@ public class Solver {
 		
 		switch (strategy) {
 			case DFS:
-				state = DFS(initial, goal);
+				state = DFS(initial);
 				break;
 			case BFS:
-				state = BFS(initial, goal);
+				state = BFS(initial);
 				break;
 		}
 		

@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.Arrays;
+
 public class Generator {
 	public Operators operators = null;
 	

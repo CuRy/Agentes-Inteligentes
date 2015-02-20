@@ -19,4 +19,5 @@ public abstract class State {
 	
 	protected abstract boolean isFinal();
 	
+	protected abstract int hamming();
 }

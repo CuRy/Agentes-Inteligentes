@@ -1,11 +1,11 @@
 package Main;
 
-import java.util.Arrays;
 
 public abstract class Operator {
 	public Object[] Arguments;
+	public String name;
 	public abstract Object[] generateArgs();
 	public String toString() {
-		return Arrays.toString(Arguments);
+		return name;
 	}
 }

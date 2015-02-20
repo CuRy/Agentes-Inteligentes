@@ -52,7 +52,7 @@ public class EightPuzzleState extends State {
 		Object[] args = operator.Arguments;
 		EightPuzzleState state = new EightPuzzleState(this);
 		
-		return state.update((int)args[0], (int)args[1])? state: null;
+		return state.update((Integer)args[0], (Integer)args[1])? state: null;
 	}
 	
 	@Override
@@ -89,5 +89,20 @@ public class EightPuzzleState extends State {
 	@Override
 	protected boolean isFinal() {
 		return this.equals(new EightPuzzleState(new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}}, 2, 2));
+	}
+
+	@Override
+	protected int hamming() {
+		int count = 0;
+		
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++) 
+				if (board[i][j] != ((i * 3) + j + 1)) 
+					count++;
+		
+		if (board[2][2] == 0) 
+			count--;
+		
+		return count;
 	}
 }

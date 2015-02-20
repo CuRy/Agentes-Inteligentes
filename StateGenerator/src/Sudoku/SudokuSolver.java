@@ -1,5 +1,6 @@
 package Sudoku;
 
+import Main.Generator.HeuristicStrategy;
 import Main.Solver;
 
 public class SudokuSolver {
@@ -12,6 +13,6 @@ public class SudokuSolver {
 		SudokuState initial = new SudokuState();
 			
 		//solver.Solve(initial, Solver.SolveStrategy.DFS);
-		solver.Solve(initial, Solver.SolveStrategy.BFS);
+		solver.Solve(initial, Solver.SolveStrategy.BFS, HeuristicStrategy.NONE);
 	}
 }

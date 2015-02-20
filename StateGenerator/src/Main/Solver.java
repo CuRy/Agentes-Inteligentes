@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;
 
+import Main.Generator.HeuristicStrategy;
+
 public class Solver {
 	
 	public enum SolveStrategy {
@@ -47,17 +49,18 @@ public class Solver {
 	
 	public ArrayList<State> visited = new ArrayList<State>();
 	
-	public State DFS(State initial) {
+	private State DFS(State initial, HeuristicStrategy heuristic) 
+			throws CloneNotSupportedException {
 		Stack<State> stack = new Stack<State>();
 		State[] next;
-		State currentState = initial;
+		State currentState = (State) initial.clone();
 		if(verbose >= 1) // verbose
 			System.out.println("DFS Solving started...");
 		
 		this.startTime = System.nanoTime();
 		while (!currentState.isFinal()) {
-			next = generator.generate(currentState);
-			for (int i = 0; i < next.length; i++) {
+			next = generator.generate(currentState, heuristic);
+			for (int i = next.length - 1; i >= 0; i--) {
 				if (next[i] != null && !visited.contains(next[i])) {
 					generatedStates++;
 					stack.push(next[i]);
@@ -67,7 +70,7 @@ public class Solver {
 			}
 			
 			if (!stack.isEmpty())
-				currentState = stack.pop();	
+				currentState = stack.pop();
 			else {
 				this.endTime = System.nanoTime();
 				return null;
@@ -78,8 +81,8 @@ public class Solver {
 		return currentState;
 	}	
 	
-	private State BFS(State initial) throws CloneNotSupportedException {
-		
+	private State BFS(State initial, HeuristicStrategy heuristic) 
+			throws CloneNotSupportedException {
 		LinkedList<State> queue = new LinkedList<State>();
 		State[] next;
 		State currentState = (State) initial.clone();
@@ -88,12 +91,13 @@ public class Solver {
 		
 		this.startTime = System.nanoTime();
 		while (!currentState.isFinal()) {
-			next = generator.generate(currentState);
-			for (int i = 0; i < next.length; i++) {
-				if (next[i] != null && !visited.contains(next[i])) {
+			next = generator.generate(currentState, heuristic);
+			for (State state: next) {
+				if (state != null && !visited.contains(state)) {
 					generatedStates++;
-					queue.add(next[i]);
-					visited.add(next[i]);
+					queue.add(state);
+					visited.add(state);
+					System.out.println("generated states: " + generatedStates);
 				}
 			}
 
@@ -109,7 +113,8 @@ public class Solver {
 		return currentState;
 	}
 	
-	public ArrayList<Operator> Solve(State initial, SolveStrategy strategy) throws CloneNotSupportedException {
+	public ArrayList<Operator> Solve(State initial, SolveStrategy strategy, 
+			HeuristicStrategy heuristic) throws CloneNotSupportedException {
 		if (this.generator.getOperators() == null)
 			return null;
 		
@@ -124,10 +129,10 @@ public class Solver {
 		
 		switch (strategy) {
 			case DFS:
-				state = DFS(initial);
+				state = DFS(initial, heuristic);
 				break;
 			case BFS:
-				state = BFS(initial);
+				state = BFS(initial, heuristic);
 				break;
 		}
 		

@@ -91,7 +91,7 @@ public class SudokuState extends State {
 		
 		Object[] args = op.Arguments;
 		SudokuState state = new SudokuState(this);
-		return state.update((int)args[0], (int)args[1], (int)args[2])? state: null;
+		return state.update((Integer)args[0], (Integer)args[1], (Integer)args[2])? state: null;
 	}
 	
 	@Override
@@ -134,6 +134,15 @@ public class SudokuState extends State {
 			
 		return true;
 	}
-	
 
+	@Override
+	protected int hamming() {
+		int count = 0;
+		
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++) 
+				if (board[i][j] == 0) count++;
+		
+		return count;
+	}
 }

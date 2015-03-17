@@ -1,0 +1,9 @@
+vehicleType = cycle AND num_wheels = 2 AND motor = NO
+vehicleType = cycle AND num_wheels = 3 AND motor = NO
+vehicleType = cycle AND num_wheels = 2 AND motor = YES
+vehicleType = automobile AND size = small AND num_doors = 2
+vehicleType = automobile AND size = medium AND num_doors = 4
+vehicleType = automobile AND size = medium AND num_doors = 3
+vehicleType = automobile AND size = large AND num_doors = 4
+num_wheels < 4
+num_wheels = 4 AND motor = YES

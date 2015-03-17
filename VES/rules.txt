@@ -1,0 +1,9 @@
+Bicycle: IF vehicleType = cycle AND num_wheels = 2 AND motor = NO
+Tricycle: IF vehicleType = cycle AND num_wheels = 3 AND motor = NO
+Motorcycle: IF vehicleType = cycle AND num_wheels = 2 AND motor = YES
+SportsCar: IF vehicleType = automobile AND size = small AND num_doors = 2
+Sedan: IF vehicleType = automobile AND size = medium AND num_doors = 4
+MiniVan: IF vehicleType = automobile AND size = medium AND num_doors = 3
+SUV: IF vehicleType = automobile AND size = large AND num_doors = 4
+Cycle: IF num_wheels < 4 
+Automobile: IF num_wheels = 4 AND motor = YES
